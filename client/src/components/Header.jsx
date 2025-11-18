@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <>
-      <header className="w-full h-auto bg-blue-600 flex justify-between border-2 border-amber-700">
-        <div className="w-1/5 border-2 border-amber-400 text-[#ffffff] text-[20px] ml-10">
+      <header className="w-full h-auto bg-blue-600 flex justify-between py-4">
+        <div className="w-1/5  text-[#ffffff] text-[20px] ml-10">
           <Link to={"/"}>Talha's Collections</Link>
         </div>
-        <nav className="w-1/2 border-2 border-amber-400 flex">
+        <nav className="w-1/2  flex">
           <ul className="h-auto w-full flex justify-evenly">
             <li className="text-[20px] text-[#ffffff]">
               <Link to={"/"}>Home</Link>
@@ -28,7 +28,7 @@ function Header() {
             </li>
           </ul>
         </nav>
-        <div className="w-1/5 border-2 border-amber-400 flex justify-end items-center mr-10">
+        <div className="w-1/5  flex justify-end items-center mr-10">
           <Link to={"/cart"}>
             <FontAwesomeIcon
               icon={faCartShopping}
