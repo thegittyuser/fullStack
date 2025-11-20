@@ -24,3 +24,5 @@ const products = [
     image: "./products_images/pro4.webp",
   },
 ];
+
+export default products;
