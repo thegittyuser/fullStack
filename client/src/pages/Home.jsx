@@ -1,4 +1,15 @@
+import { useEffect } from "react";
+import { useState } from "react";
+
 function Home() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/productsapi").then((res) =>
+      res.json().then((data) => setProducts(data))
+    );
+  });
+
   return (
     <>
       <section className="w-full h-auto bg-amber-200 flex justify-center items-center flex-col py-16 px-5">
@@ -15,6 +26,17 @@ function Home() {
           Shop Now
         </button>
       </section>
+
+      {products.map((product) => {
+        <div key={product.id}>
+          <img src={product.image} alt={product.title} />
+          <h2>{product.title}</h2>
+          <p>
+            <b>{product.price}</b>
+          </p>
+          <button>Add To Cart</button>
+        </div>;
+      })}
     </>
   );
 }
