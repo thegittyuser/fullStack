@@ -5,10 +5,13 @@ function Home() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/productsapi").then((res) =>
-      res.json().then((data) => setProducts(data))
-    );
-  });
+    fetch("http://localhost:5000/api/productsapi")
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) =>
+        console.error("Error while fetching data from API: " + err)
+      );
+  }, []);
 
   return (
     <>
