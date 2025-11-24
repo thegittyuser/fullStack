@@ -6,6 +6,7 @@ import Collection from "../pages/Collection";
 import Cart from "../pages/Cart";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 function Index() {
   return (
@@ -19,6 +20,7 @@ function Index() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </Router>
     </>
