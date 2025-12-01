@@ -1,12 +1,34 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Register() {
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    phone: "",
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const response = fetch("http://localhost:5000/doregister", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  }
+
   return (
     <>
       <section className="w-full max-w-sm mx-auto mt-20 p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Register Form</h2>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit()}>
           <div className="flex flex-col">
             <label
               htmlFor="username"
@@ -43,21 +65,6 @@ function Register() {
               className="mb-1 text-sm font-medium text-gray-700"
             >
               Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="px-4 py-2 border rounded-md"
-            />
-          </div>
-
-          <div className="flex flex-col">
-            <label
-              htmlFor="password"
-              className="mb-1 text-sm font-medium text-gray-700"
-            >
-              Confirm Password
             </label>
             <input
               type="password"
