@@ -1,4 +1,4 @@
-import userModel from "../model/userdata.model";
+import userModel from "../model/userdata.model.js";
 
 export const doregister = (req, res) => {
   try {

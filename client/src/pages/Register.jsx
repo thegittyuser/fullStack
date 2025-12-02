@@ -9,26 +9,41 @@ function Register() {
     phone: "",
   });
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = fetch("http://localhost:5000/doregister", {
+      const response = await fetch("http://localhost:5000/doregister", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        alert(data.message);
+
+        setForm({
+          username: "",
+          email: "",
+          password: "",
+          phone: "",
+        });
+      } else {
+        alert(data.message);
+      }
     } catch (err) {
       console.error(err);
       alert(err.message);
     }
-  }
+  };
 
   return (
     <>
       <section className="w-full max-w-sm mx-auto mt-20 p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Register Form</h2>
 
-        <form className="space-y-5" onSubmit={handleSubmit()}>
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <label
               htmlFor="username"
@@ -41,6 +56,8 @@ function Register() {
               id="username"
               name="username"
               className="px-4 py-2 border rounded-md"
+              value={form.username}
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
             />
           </div>
 
@@ -56,6 +73,8 @@ function Register() {
               id="email"
               name="email"
               className="px-4 py-2 border rounded-md"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
 
@@ -71,6 +90,8 @@ function Register() {
               id="password"
               name="password"
               className="px-4 py-2 border rounded-md"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>
 
@@ -86,6 +107,8 @@ function Register() {
               id="phone"
               name="phone"
               className="px-4 py-2 border rounded-md"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
             />
           </div>
 
