@@ -22,6 +22,7 @@ function Register() {
 
       if (data.ok) {
         alert(data.message);
+        
 
         setForm({
           username: "",
@@ -52,12 +53,12 @@ function Register() {
               Username
             </label>
             <input
-              type="username"
+              type="text"
               id="username"
               name="username"
               className="px-4 py-2 border rounded-md"
-              value={form.username}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
+              value={form.username}
             />
           </div>
 
@@ -73,8 +74,8 @@ function Register() {
               id="email"
               name="email"
               className="px-4 py-2 border rounded-md"
-              value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
+              value={form.email}
             />
           </div>
 
@@ -90,8 +91,8 @@ function Register() {
               id="password"
               name="password"
               className="px-4 py-2 border rounded-md"
-              value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
+              value={form.password}
             />
           </div>
 
@@ -103,12 +104,12 @@ function Register() {
               Phone No
             </label>
             <input
-              type="phone"
+              type="tel"
               id="phone"
               name="phone"
               className="px-4 py-2 border rounded-md"
-              value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              value={form.phone}
             />
           </div>
 

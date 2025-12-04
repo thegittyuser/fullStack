@@ -7,7 +7,10 @@ export const doregister = async (req, res) => {
     // existing email checking
     const existingEmail = await userModel.findOne({ email });
     if (existingEmail) {
-      res.status(400).json({ message: "Email already exist!" });
+      return res.status(400).json({
+        ok: false,
+        message: "Email already exists!",
+      });
     }
 
     const userDetail = await userModel.create({
@@ -16,12 +19,15 @@ export const doregister = async (req, res) => {
       password,
       phone,
     });
-    res
+    return res
       .status(201)
-      .json({ message: "user registration successful", userDetail });
+      .json({ ok: true, message: "User registration successful", userDetail });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Invalid Server Response" });
+    return res.status(500).json({
+      ok: false,
+      message: "Server error",
+    });
   }
 };
 
