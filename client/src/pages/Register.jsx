@@ -22,7 +22,6 @@ function Register() {
 
       if (data.ok) {
         alert(data.message);
-        
 
         setForm({
           username: "",

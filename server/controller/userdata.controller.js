@@ -36,14 +36,15 @@ export const dologin = async (req, res) => {
     const { email, password } = req.body;
     // existing email checking
     const user = await userModel.findOne({ email });
-    if (!user) return res.status(400).json({ message: "Email not found!" });
+    if (!user)
+      return res.status(400).json({ ok: false, message: "Email not found!" });
     if (user.password !== password) {
-      return res.status(400).json({ message: "password not match" });
+      return res.status(400).json({ ok: false, message: "password not match" });
     } else {
-      return res.status(200).json({ message: "Login Successful" });
+      return res.status(200).json({ ok: true, message: "Login Successful" });
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Invalid Server Response" });
+    return res.status(500).json({ ok: false, message: "Server error" });
   }
 };
