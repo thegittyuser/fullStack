@@ -1,4 +1,5 @@
 import userModel from "../model/userdata.model.js";
+import bcrypt from "bcrypt";
 
 export const doregister = async (req, res) => {
   try {
@@ -7,16 +8,17 @@ export const doregister = async (req, res) => {
     // existing email checking
     const existingEmail = await userModel.findOne({ email });
     if (existingEmail) {
-      return res.status(400).json({
-        ok: false,
-        message: "Email already exists!",
-      });
+      return res
+        .status(400)
+        .json({ ok: false, message: "Email already exists!" });
     }
+
+    const password_hash = await bcrypt.hash(password, 10);
 
     const userDetail = await userModel.create({
       username,
       email,
-      password,
+      password: password_hash,
       phone,
     });
     return res
@@ -24,10 +26,7 @@ export const doregister = async (req, res) => {
       .json({ ok: true, message: "User registration successful", userDetail });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({
-      ok: false,
-      message: "Server error",
-    });
+    return res.status(500).json({ ok: false, message: "Server error" });
   }
 };
 

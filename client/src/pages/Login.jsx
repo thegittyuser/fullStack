@@ -2,15 +2,37 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-  // const [form, setForm] = useState()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/dologin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await response.json();
+      if (data.ok) {
+        console.log(data.message);
+      } else {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
       <section className="w-full max-w-sm mx-auto mt-20 p-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Login Form</h2>
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <label
               htmlFor="email"
@@ -23,6 +45,7 @@ function Login() {
               id="email"
               name="email"
               className="px-4 py-2 border rounded-md"
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
 
@@ -38,6 +61,7 @@ function Login() {
               id="password"
               name="password"
               className="px-4 py-2 border rounded-md"
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>
 
