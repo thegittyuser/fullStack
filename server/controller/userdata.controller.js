@@ -60,10 +60,30 @@ export const dologin = async (req, res) => {
       return res.status(400).json({ ok: false, message: "Password not match" });
     } else {
       // Send success response after login
-      return res.status(200).json({ ok: true, message: "Login Successful" });
+      return res
+        .status(200)
+        .json({ ok: true, message: "Login Successful", user });
     }
   } catch (err) {
     // Catch unexpected server errors
+    console.error(err);
+    return res.status(500).json({ ok: false, message: "Server error" });
+  }
+};
+
+export const Profile = async (req, res) => {
+  try {
+    const { email } = req.params; //localhost/profile/:email
+    // email checking from db
+    const userEmail = await userModel.findOne({ email });
+    if (!userEmail) {
+      return res
+        .status(400)
+        .json({ ok: false, message: "user email not found" });
+    } else {
+      res.json(userEmail);
+    }
+  } catch (err) {
     console.error(err);
     return res.status(500).json({ ok: false, message: "Server error" });
   }
