@@ -62,7 +62,11 @@ export const dologin = async (req, res) => {
       // Send success response after login
       return res
         .status(200)
-        .json({ ok: true, message: "Login Successful", user });
+        .json({
+          ok: true,
+          message: "Login Successful",
+          userEmail: { email: user.email },
+        });
     }
   } catch (err) {
     // Catch unexpected server errors
