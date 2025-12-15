@@ -1,5 +1,7 @@
 import userModel from "../model/userdata.model.js";
 import bcrypt from "bcrypt";
+import cryptoJS from "crypto-js";
+import { v4 as uuidv4 } from "uuid";
 
 // =========================
 //  USER REGISTRATION
@@ -44,6 +46,8 @@ export const doregister = async (req, res) => {
 // =========================
 //  USER LOGIN
 // =========================
+// temporary data storage
+const sessionKeys = {};
 export const dologin = async (req, res) => {
   try {
     // Extract login credentials from request body
@@ -60,13 +64,18 @@ export const dologin = async (req, res) => {
       return res.status(400).json({ ok: false, message: "Password not match" });
     } else {
       // Send success response after login
-      return res
-        .status(200)
-        .json({
-          ok: true,
-          message: "Login Successful",
-          userEmail: { email: user.email },
-        });
+      const dynamicKey = cryptoJS.lib.WordArray.random(16).toString();
+      const sessionId = uuidv4();
+
+      const encryptedMail = cryptoJS.AES.encrypt(email, dynamicKey).toString();
+      
+      sessionKeys[sessionId] = dynamicKey;
+
+      return res.status(200).json({
+        ok: true,
+        message: "Login Successful",
+        userEmail: { email: user.email },
+      });
     }
   } catch (err) {
     // Catch unexpected server errors
