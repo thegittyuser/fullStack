@@ -22,7 +22,7 @@ function Index() {
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/profile/:email" element={<Profile />}></Route>
+          <Route path="/profile/:sessionId" element={<Profile />}></Route>
         </Routes>
       </Router>
     </>

@@ -22,7 +22,7 @@ function Login() {
       if (data.ok) {
         console.log(data.message);
 
-        navigate(`/profile/${data.userEmail.email}`);
+        navigate(`/profile/${data.userEmail.sessionId}`);
       } else {
         console.log(data.message);
       }

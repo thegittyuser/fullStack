@@ -68,13 +68,14 @@ export const dologin = async (req, res) => {
       const sessionId = uuidv4();
 
       const encryptedMail = cryptoJS.AES.encrypt(email, dynamicKey).toString();
-      
+
       sessionKeys[sessionId] = dynamicKey;
 
       return res.status(200).json({
         ok: true,
         message: "Login Successful",
-        userEmail: { email: user.email },
+        // userEmail: { email: user.email },
+        userEmail: { email: encryptedMail, sessionId },
       });
     }
   } catch (err) {
