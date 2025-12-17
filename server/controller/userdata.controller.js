@@ -87,9 +87,23 @@ export const dologin = async (req, res) => {
 
 export const Profile = async (req, res) => {
   try {
-    const { email } = req.params; //localhost/profile/:email
+    const { sessionId } = req.params; //localhost/profile/:sessionId
+
+    if (!sessionKeys[sessionId]) {
+      return res
+        .status(404)
+        .json({ ok: false, message: "Invalid session ID OR session expired" });
+    }
+
+    const sessionKeys[sessionId] = encryptedMail;
+
+    const decryptedMail = cryptoJS.AES.decrypt(
+      req.params.email,
+      sessionId
+    ).toString(cryptoJS.enc.Utf8);
+
     // email checking from db
-    const userEmail = await userModel.findOne({ email });
+    const userEmail = await userModel.findOne({ decryptedMail });
     if (!userEmail) {
       return res
         .status(400)
