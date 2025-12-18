@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+
 import {
   dologin,
   doregister,
@@ -8,6 +9,6 @@ import {
 
 router.post("/doregister", doregister);
 router.post("/dologin", dologin);
-router.get("/profile/:sessionId", Profile);
+router.get("/profile/:sessionId/:email", Profile);
 
 export default router;
