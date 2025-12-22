@@ -17,11 +17,9 @@ function Login() {
     const data = await response.json();
 
     if (data.ok) {
-      navigate(
-        `/profile/${data.userEmail.sessionId}/${encodeURIComponent(
-          data.userEmail.email
-        )}`
-      );
+      navigate(`/profile/${data.userEmail.sessionId}`);
+    } else {
+      console.log(data.message);
     }
   };
 

@@ -55,17 +55,17 @@ export const dologin = async (req, res) => {
     if (!password_match) {
       return res.status(400).json({ ok: false, message: "Password not match" });
     }
-
+    // create session
     const dynamicKey = cryptoJS.lib.WordArray.random(16).toString();
     const sessionId = uuidv4();
     const encryptedMail = cryptoJS.AES.encrypt(email, dynamicKey).toString();
 
-    sessionKeys[sessionId] = dynamicKey;
+    sessionKeys[sessionId] = { dynamicKey, encryptedEmail: encryptedMail };
 
     return res.status(200).json({
       ok: true,
       message: "Login Successful",
-      userEmail: { email: encryptedMail, sessionId },
+      userEmail: { sessionId },
     });
   } catch (err) {
     console.error(err);
@@ -78,7 +78,7 @@ export const dologin = async (req, res) => {
 // =========================
 export const Profile = async (req, res) => {
   try {
-    const { sessionId, email } = req.params;
+    const { sessionId } = req.params;
 
     if (!sessionKeys[sessionId]) {
       return res
@@ -86,10 +86,10 @@ export const Profile = async (req, res) => {
         .json({ ok: false, message: "Invalid session ID OR session expired" });
     }
 
-    const dynamicKey = sessionKeys[sessionId];
+    const { dynamicKey, encryptedEmail } = sessionKeys[sessionId];
 
     const decryptedMail = cryptoJS.AES.decrypt(
-      decodeURIComponent(email),
+      encryptedEmail,
       dynamicKey
     ).toString(cryptoJS.enc.Utf8);
 
@@ -111,6 +111,27 @@ export const Profile = async (req, res) => {
       ok: true,
       email: user.email,
     });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ ok: false, message: "Server error" });
+  }
+};
+
+// =========================
+//  USER LOGOUT
+// =========================
+
+export const Logout = (req, res) => {
+  try {
+    const { sessionId } = req.params;
+    if (!sessionKeys[sessionId]) {
+      return res
+        .status(400)
+        .json({ ok: false, message: "Session Id Not Found" });
+    } else {
+      delete sessionKeys[sessionId];
+      return res.status(200).json({ ok: true, message: "logout successful" });
+    }
   } catch (err) {
     console.error(err);
     return res.status(500).json({ ok: false, message: "Server error" });
