@@ -4,7 +4,7 @@ import products from "./api/productsApi.js";
 import cors from "cors";
 import path, { join } from "path";
 import { fileURLToPath } from "url";
-import router from "./router/userdata.route.js";
+import userRouter from "./router/userdata.route.js";
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // router middleware
-app.use("/", router);
+app.use("/", userRouter);
 
 // db connection file
 import dbConnection from "./config/db.js";
