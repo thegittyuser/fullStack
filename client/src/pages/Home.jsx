@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -12,6 +13,27 @@ function Home() {
         console.error("Error while fetching data from API: " + err)
       );
   }, []);
+
+  const addToCart = async (product) => {
+    try {
+      const response = await fetch("http://localhost:5000/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        console.log(data.message);
+      } else {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
 
   return (
     <>
@@ -26,7 +48,7 @@ function Home() {
           tempore, similique quis cupiditate repellendus odio.
         </p>
         <button className="bg-black text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
-          Shop Now
+          <Link to="/shop">Shop Now</Link>
         </button>
       </section>
 
@@ -53,10 +75,13 @@ function Home() {
               </h2>
 
               <p className="text-gray-700 mb-3">
-                <b>{product.price}</b>
+                <b>Rs {product.price}</b>
               </p>
 
-              <button className="bg-black text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+              <button
+                onClick={() => addToCart(product)}
+                className="bg-black text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+              >
                 Add To Cart
               </button>
             </div>
