@@ -23,3 +23,8 @@ export const cart = async (req, res) => {
     });
   }
 };
+
+export const getCart = async (req, res) => {
+  const cartItems = await cartModel.find();
+  return res.status(200).json({ ok: true, cartItems });
+};

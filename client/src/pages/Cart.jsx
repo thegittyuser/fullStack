@@ -1,4 +1,21 @@
+import { useEffect } from "react";
+import { useState } from "react";
+
 function Cart() {
+  const [cartItems, setCartItems] = useState([]);
+
+  const fetchCart = async () => {
+    await fetch("http://localhost:5000/cart")
+      .then((res) => res.json())
+      .then((data) => {
+        setCartItems(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 p-6">
@@ -6,6 +23,7 @@ function Cart() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Cart Items */}
+
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center bg-white p-4 rounded-lg shadow">
               <img src="#" className="w-24 h-24 rounded object-cover" />
