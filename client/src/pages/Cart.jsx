@@ -16,6 +16,8 @@ function Cart() {
     fetchCart();
   }, []);
 
+
+  
   return (
     <>
       <div className="min-h-screen bg-gray-100 p-6">
@@ -39,7 +41,9 @@ function Cart() {
                     <button className="px-3 py-1 border rounded-l hover:bg-gray-200">
                       -
                     </button>
-                    <span className="px-4 py-1 border-t border-b">1</span>
+                    <span className="px-4 py-1 border-t border-b">
+                      {item.quantity}
+                    </span>
                     <button className="px-3 py-1 border rounded-r hover:bg-gray-200">
                       +
                     </button>
