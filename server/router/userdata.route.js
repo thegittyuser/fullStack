@@ -8,7 +8,12 @@ import {
   Profile,
 } from "../controller/userdata.controller.js";
 // cart controller
-import { cart, getCart } from "../controller/cart.controller.js";
+import {
+  cart,
+  decreaseQty,
+  getCart,
+  increaseQty,
+} from "../controller/cart.controller.js";
 
 router.post("/doregister", doregister);
 router.post("/dologin", dologin);
@@ -18,5 +23,7 @@ router.get("/logout/:sessionId", Logout);
 // cart route
 router.post("/cart", cart);
 router.get("/cart", getCart);
+router.get("/cart/increase/:id", increaseQty);
+router.get("/cart/decrease/:id", decreaseQty);
 
 export default router;
