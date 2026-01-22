@@ -13,6 +13,7 @@ import {
   decreaseQty,
   getCart,
   increaseQty,
+  placeOrder,
 } from "../controller/cart.controller.js";
 
 router.post("/doregister", doregister);
@@ -25,5 +26,5 @@ router.post("/cart", cart);
 router.get("/cart", getCart);
 router.get("/cart/increase/:id", increaseQty);
 router.get("/cart/decrease/:id", decreaseQty);
-
+router.get("/checkout", placeOrder);
 export default router;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -89,7 +90,7 @@ function Cart() {
           </div>
 
           <button className="w-full mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
-            Checkout
+            <Link to="/checkout">Checkout</Link>
           </button>
         </div>
       </div>

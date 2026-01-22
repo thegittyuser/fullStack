@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -10,7 +11,7 @@ function Home() {
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) =>
-        console.error("Error while fetching data from API: " + err)
+        console.error("Error while fetching data from API: " + err),
       );
   }, []);
 
@@ -26,6 +27,7 @@ function Home() {
 
       if (data.ok) {
         console.log(data.message);
+        navigate("/cart");
       } else {
         console.log(data.message);
       }

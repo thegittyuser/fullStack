@@ -90,3 +90,8 @@ export const removeItem = async (req, res) => {
     });
   }
 };
+
+
+export const placeOrder = (req, res) => {
+  
+}
