@@ -17,11 +17,38 @@ function Cart() {
   }, []);
 
   const updateQty = async (type, id) => {
-    await fetch(`http://localhost:5000/cart/${type}/${id}`);
-    console.log("Quantity Updated");
+    try {
+      const response = await fetch(`http://localhost:5000/cart/${type}/${id}`, {
+        method: "PUT",
+      });
+      const data = await response.json();
+      if (data.ok) {
+        console.log(data.message);
+      } else {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
     fetchCart();
   };
 
+  const removeItem = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/cart/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (data.ok) {
+        console.log(data.message);
+      } else {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    fetchCart();
+  };
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-6">Cart Items</h1>
@@ -45,7 +72,7 @@ function Cart() {
                 <div className="flex items-center mt-2">
                   <button
                     className="px-3 py-1 border rounded-l hover:bg-gray-200"
-                    onClick={() => updateQty(item._id, "decrease")}
+                    onClick={() => updateQty("decrease", item._id)}
                   >
                     -
                   </button>
@@ -54,7 +81,7 @@ function Cart() {
                   </span>
                   <button
                     className="px-3 py-1 border rounded-r hover:bg-gray-200"
-                    onClick={() => updateQty(item._id, "increase")}
+                    onClick={() => updateQty("increase", item._id)}
                   >
                     +
                   </button>

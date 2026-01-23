@@ -14,6 +14,7 @@ import {
   getCart,
   increaseQty,
   placeOrder,
+  removeItem,
 } from "../controller/cart.controller.js";
 
 router.post("/doregister", doregister);
@@ -26,5 +27,6 @@ router.post("/cart", cart);
 router.get("/cart", getCart);
 router.get("/cart/increase/:id", increaseQty);
 router.get("/cart/decrease/:id", decreaseQty);
+router.get("/cart/:id", removeItem);
 router.get("/checkout", placeOrder);
 export default router;
